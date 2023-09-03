@@ -35,9 +35,14 @@ $(function () {
   setTime()
 });
 
-function handleSaveBtn() {
+function handleSaveBtn(event) {
   const btnClicked = $(event.target)
-  console.log('yes')
+  const text = $(this).siblings('.description').val()
+  const time = $(this).parent().attr('id')
+  
+  saveLocalStorage(time, text)
+  console.log('time', time)
+  console.log('text', text)
 
 }
 
@@ -54,9 +59,31 @@ function applyClasses () {
   }
 }
 
-function saveLocalStorage () {}
+function saveLocalStorage (time, text) {
+  let storedTextData = localStorage.getItem(time)
 
-function getLocalStorage () {}
+  // if (textData.text) {
+  // } else {
+  //   return 
+  // }
+  storedTextData = JSON.stringify(time)
+
+  localStorage.setItem(time, text)
+
+}
+
+function getLocalStorage () {
+  $("#hour-8 .description").val(localStorage.getItem("hour-8"));
+  $("#hour-9 .description").val(localStorage.getItem("hour-9"));
+  $("#hour-10 .description").val(localStorage.getItem("hour-10"));
+  $("#hour-11 .description").val(localStorage.getItem("hour-11"));
+  $("#hour-12 .description").val(localStorage.getItem("hour-12"));
+  $("#hour-13 .description").val(localStorage.getItem("hour-13"));
+  $("#hour-14 .description").val(localStorage.getItem("hour-14"));
+  $("#hour-15 .description").val(localStorage.getItem("hour-15"));
+  $("#hour-16 .description").val(localStorage.getItem("hour-16"));
+  $("#hour-17 .description").val(localStorage.getItem("hour-17"));
+}
 
 function setTime () {
   for (let i=0; i<dayArr.length; i++){
@@ -73,3 +100,6 @@ function setTime () {
 
   currentDayDiv.text(`${dayTxt}, ${monthTxt} ${date}`)
 }
+
+setTime()
+getLocalStorage()
